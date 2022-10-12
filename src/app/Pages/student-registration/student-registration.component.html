@@ -1,0 +1,288 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-dark">
+  <a class="navbar-brand" href="#"> Student Management</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse sidenav" id="navbarSupportedContent">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item active">
+        <a class="nav-link navhome" href="#"> Home </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="main-container">
+  <div class="row">
+    <div class="col-sm-2 sidenav">
+      <div class="mt-2 sidenav-content">
+        <p class="text-center fw-normal action ms-5 fs-3">Actions</p>
+        <span class="submitbtn">
+          <app-submit-button
+            [className]="'btn btn-dark w-50 ms-5'"
+            [students]="studentForm.value"
+            [label]="'Save'"
+            (onClick)="onSubmit($event)"
+          ></app-submit-button
+        ></span>
+      </div>
+    </div>
+    <div class="col-sm-8 panel panel-primary">
+      <div class="mt-2">
+        <p class="text-center fw-normal fs-3">Student Registration Form</p>
+      </div>
+      <hr />
+      <div class="container">
+        <div class="headingbar panel panel-heading">
+          <h3 class="headtext fw-normal">Basic Informations</h3>
+        </div>
+        <div>
+          <form [formGroup]="studentForm">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group pt-3">
+                  <label class="fw-normal">First Name</label><br />
+                  <input
+                    type="text"
+                    formControlName="firstname"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group pt-3">
+                  <label>Choose your Gender</label><br />
+
+                  <label for="male">Male</label>
+                  <input
+                    formControlName="genderMale"
+                    type="radio"
+                    id="male"
+                    value="male"
+                    class="ms-1"
+                    checked
+                  />
+                  <label class="ms-5" for="female">Female</label>
+                  <input
+                    formControlName="genderFemale"
+                    type="radio"
+                    id="female"
+                    value="female"
+                  />
+                </div>
+              </div>
+              <!-- right div -->
+              <div class="col-md-4">
+                <div class="form-group pt-3">
+                  <label class="fw-normal">Last Name</label><br />
+                  <input formControlName="lastname" class="form-control" />
+                </div>
+                <div class="form-group pt-3">
+                  <label>DOB</label><br />
+                  <input
+                    formControlName="dob"
+                    type="date"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group pt-3">
+                  <label class="fw-normal">Email</label><br />
+                  <input
+                    formControlName="email"
+                    type="email"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group pt-3">
+                  <label class="fw-normal">Mobile number</label><br />
+                  <input
+                    formControlName="mobileNumber"
+                    type="number"
+                    maxlength="12"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- secnd row -->
+            <div class="row mt-2">
+              <accordion class="acc" [isAnimated]="true">
+                <accordion-group heading="Identity Detail" [isOpen]="true">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group pt-3">
+                        <label for="sel1" class="fw-normal">ID TYPE</label
+                        ><br />
+                        <!-- <input class="form-control" /> -->
+                        <select
+                          formControlName="idType"
+                          class="form-select"
+                          id="sel1"
+                          name="sellist1"
+                        >
+                          <option value="" selected disabled hidden>
+                            Choose Id
+                          </option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group pt-3">
+                        <label class="fw-normal">Issue Date</label><br />
+                        <input
+                          formControlName="issueDate"
+                          type="date"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group pt-3">
+                        <label class="fw-normal">Id Number</label><br />
+                        <input
+                          formControlName="idNumber"
+                          type="number"
+                          class="form-control"
+                        />
+                      </div>
+                      <div class="form-group pt-3">
+                        <label class="fw-normal">Expiry Date</label><br />
+                        <input
+                          formControlName="expiryDate"
+                          type="date"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group pt-3">
+                        <label for="sel2" class="fw-normal"
+                          >Issue Authority</label
+                        ><br />
+                        <select
+                          class="form-select"
+                          id="sel2"
+                          name="sellist1"
+                          formControlName="issueAuthority"
+                        >
+                          <option value="" selected disabled hidden>
+                            Choose Authority
+                          </option>
+                          <option>Village Administrator</option>
+                          <option>Deputy Commissioner</option>
+                          <option>District Collector</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </accordion-group>
+              </accordion>
+            </div>
+            <!-- third adress details -->
+            <div class="row mt-2">
+              <accordion [isAnimated]="true">
+                <accordion-group
+                  id="acc"
+                  heading="Address Details"
+                  [isOpen]="true"
+                >
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group pt-3">
+                        <label class="fw-normal">Address Line 1</label><br />
+                        <textarea
+                          formControlName="addresslineOne"
+                          class="form-control"
+                          id="exampleFormControlTextarea1"
+                          rows="3"
+                        ></textarea>
+                        <!-- <input class="form-control" /> -->
+                      </div>
+                      <div class="form-group pt-3">
+                        <label class="fw-normal">State</label><br />
+                        <select
+                          formControlName="state"
+                          class="form-select"
+                          id="sel2"
+                          name="sellist1"
+                        >
+                          <option value="" selected disabled hidden>
+                            Choose State
+                          </option>
+                          <option>Tamil Nadu</option>
+                          <option>Aandhra Pradesh</option>
+                          <option>Karnataka</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group pt-3">
+                        <label class="fw-normal">Address Line 2</label><br />
+                        <!-- <input class="form-control" /> -->
+                        <textarea
+                          formControlName="addresslineTwo"
+                          class="form-control"
+                          id="exampleFormControlTextarea1"
+                          rows="3"
+                        ></textarea>
+                      </div>
+                      <div class="form-group pt-3">
+                        <label class="fw-normal">Country</label><br />
+                        <select
+                          class="form-select"
+                          id="sel2"
+                          name="sellist1"
+                          formControlName="country"
+                        >
+                          <option value="" selected disabled hidden>
+                            Choose Country
+                          </option>
+                          <option>India</option>
+                          <option>UK</option>
+                          <option>US</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group pt-3">
+                        <label class="fw-normal">City</label><br />
+                        <select
+                          class="form-select"
+                          id="sel2"
+                          name="sellist1"
+                          formControlName="city"
+                        >
+                          <option value="" selected disabled hidden>
+                            City
+                          </option>
+                          <option>Tiruchirappalli</option>
+                          <option>Madurai</option>
+                          <option>Thirunelveli</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </accordion-group>
+              </accordion>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- right side -->
+    <div class="col-sm-2"></div>
+  </div>
+</div>

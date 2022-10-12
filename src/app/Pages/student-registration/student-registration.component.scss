@@ -1,0 +1,70 @@
+.headingbar{
+  background-color: rgb(24, 67, 85);
+  width: auto;
+  height: 50px;
+  border-radius: 5px;
+}
+
+.headtext{
+  color: white;
+  padding: 10px 20px;
+  font-weight: 25px;
+  font-size:25px;
+
+}
+label{
+  font-size: 20px;
+}
+
+.navbar-brand{
+  color: white;
+}
+
+.navhome{
+  color:bisque
+}
+
+.sidenav{
+
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  .sidenav-content {
+      width: 300px;
+      min-height: 100vh;
+
+
+  }
+}
+
+.action{
+  margin-top: 80px;
+  background-color: rgb(24, 67, 85);
+  width: auto;
+  height: 50px;
+  border-radius: 5px;
+  color: white;
+}
+
+.submitbtn{
+  margin-left: 50px;
+}
+
+
+accordion-group {
+  ::ng-deep {
+    div {
+      &>div.panel-heading.card-header.panel-enabled {
+        background-color:  rgb(24, 67, 85); // change the background of every accordion heading
+
+        .btn-link {
+          font-size: 25px;
+          text-decoration: none;
+          color: white; // change the accordion heading buttons style
+        }
+      }
+
+      &>div.panel-collapse.collapse.in.show>div {
+        background-color:white; // change the expanded content style
+      }
+    }
+  }
+}
