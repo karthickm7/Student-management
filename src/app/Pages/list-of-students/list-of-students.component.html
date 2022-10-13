@@ -1,0 +1,45 @@
+<nav class="navbar navbar-light bg-dark">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">Student Registration</span>
+  </div>
+</nav>
+
+<div class="container-fluid">
+<div class="row">
+
+
+  <div class="col-md-7">
+    <table class="table text-center table-striped table-hover">
+      <thead class="thead-dark">
+          <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Email</th>
+              <th>DOB</th>
+              <th>Action</th>
+          </tr>
+      </thead>
+      <tbody *ngFor="let item of formValue">
+          <tr >
+              <td>1</td>
+              <td>{{item.firstname}}</td>
+              <td>{{item.gender}}</td>
+              <td>{{item.email}}</td>
+              <td>{{item.dob}}</td>
+
+              <td class="tdicon">
+                  <button class="settings border-0" (click)="onEdit(item)"><mat-icon>settings</mat-icon></button>
+                 <button class="delete border-0 ml-2"><mat-icon>delete_outline</mat-icon></button>
+              </td>
+          </tr>
+          </tbody>
+  </table>
+
+</div>
+
+<div class="col-md-5 " >
+      <app-student-registration *ngIf="editToggle" [editToggle]="editToggle"  [tableData]="editVal" ></app-student-registration>
+</div>
+
+</div>

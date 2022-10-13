@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-dark">
+<nav *ngIf="!editToggle" class="navbar navbar-expand-sm navbar-light bg-dark">
   <a class="navbar-brand" href="#"> Student Management</a>
   <button
     class="navbar-toggler"
@@ -23,7 +23,7 @@
 <div class="main-container">
   <div class="row">
     <div class="col-sm-2 sidenav">
-      <div class="mt-2 sidenav-content">
+      <div class="mt-2 sidenav-content"  *ngIf="!editToggle">
         <p class="text-center fw-normal action ms-5 fs-3">Actions</p>
         <span class="submitbtn">
           <app-submit-button
@@ -31,8 +31,12 @@
             [students]="studentForm.value"
             [label]="'Save'"
             (onClick)="onSubmit($event)"
-          ></app-submit-button
-        ></span>
+          ></app-submit-button>
+
+        </span>
+        <div class="lis-button"><button routerLink="/list-of-students"  class="btn btn-dark w-50 ms-5">List View</button></div>
+
+
       </div>
     </div>
     <div class="col-sm-8 panel panel-primary">
@@ -54,34 +58,73 @@
                     type="text"
                     formControlName="firstname"
                     class="form-control"
+                    [ngClass]="{
+                      'is-invalid': submitted && f['firstname'].errors
+                    }"
                   />
+                  <div
+                    *ngIf="submitted && f['firstname'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f['firstname'].errors['required']">
+                      Firstname is required
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group pt-3">
                   <label>Choose your Gender</label><br />
 
-                  <label for="male">Male</label>
+                  <label for="male" class="custom-control-label">Male</label>
                   <input
-                    formControlName="genderMale"
+                    formControlName="gender"
                     type="radio"
                     id="male"
                     value="male"
                     class="ms-1"
-                    checked
+                    [ngClass]="{
+                      'is-invalid': submitted && f['gender'].errors
+                    }"
                   />
-                  <label class="ms-5" for="female">Female</label>
+                  <label class="ms-5 custom-control-label" for="female"
+                    >Female</label
+                  >
                   <input
-                    formControlName="genderFemale"
+                    formControlName="gender"
                     type="radio"
                     id="female"
                     value="female"
+                    class="ms-1"
+                    [ngClass]="{
+                      'is-invalid': submitted && f['gender'].errors
+                    }"
                   />
+                  <div
+                    class="invalid-feedback"
+                    *ngIf="submitted && f['gender'].errors"
+                  >
+                    <p>Please select either value</p>
+                  </div>
                 </div>
               </div>
               <!-- right div -->
               <div class="col-md-4">
                 <div class="form-group pt-3">
                   <label class="fw-normal">Last Name</label><br />
-                  <input formControlName="lastname" class="form-control" />
+                  <input
+                    formControlName="lastname"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': submitted && f['lastname'].errors
+                    }"
+                  />
+                  <div
+                    *ngIf="submitted && f['lastname'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f['lastname'].errors['required']">
+                      Lastname is required
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group pt-3">
                   <label>DOB</label><br />
@@ -89,7 +132,16 @@
                     formControlName="dob"
                     type="date"
                     class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['dob'].errors }"
                   />
+                  <div
+                    *ngIf="submitted && f['dob'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f['dob'].errors['required']">
+                      DOB is required
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="col-md-4">
@@ -99,7 +151,19 @@
                     formControlName="email"
                     type="email"
                     class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
                   />
+                  <div
+                    *ngIf="submitted && f['email'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f['email'].errors['required']">
+                      Email is required
+                    </div>
+                    <div *ngIf="f['email'].errors['email']">
+                      Email is invalid
+                    </div>
+                  </div>
                 </div>
                 <div class="form-group pt-3">
                   <label class="fw-normal">Mobile number</label><br />
@@ -108,7 +172,18 @@
                     type="number"
                     maxlength="12"
                     class="form-control"
+                    [ngClass]="{
+                      'is-invalid': submitted && f['mobileNumber'].errors
+                    }"
                   />
+                  <div
+                    *ngIf="submitted && f['mobileNumber'].errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f['mobileNumber'].errors['required']">
+                      MobileNumber is required
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -128,6 +203,9 @@
                           class="form-select"
                           id="sel1"
                           name="sellist1"
+                          [ngClass]="{
+                            'is-invalid': submitted && f['idType'].errors
+                          }"
                         >
                           <option value="" selected disabled hidden>
                             Choose Id
@@ -137,6 +215,14 @@
                           <option>3</option>
                           <option>4</option>
                         </select>
+                        <div
+                          *ngIf="submitted && f['idType'].errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f['idType'].errors['required']">
+                            Id Type is required
+                          </div>
+                        </div>
                       </div>
 
                       <div class="form-group pt-3">
@@ -145,7 +231,18 @@
                           formControlName="issueDate"
                           type="date"
                           class="form-control"
+                          [ngClass]="{
+                            'is-invalid': submitted && f['issueDate'].errors
+                          }"
                         />
+                        <div
+                          *ngIf="submitted && f['issueDate'].errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f['issueDate'].errors['required']">
+                            Issued Date is required
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -155,15 +252,38 @@
                           formControlName="idNumber"
                           type="number"
                           class="form-control"
+                          [ngClass]="{
+                            'is-invalid': submitted && f['idNumber'].errors
+                          }"
                         />
+                        <div
+                          *ngIf="submitted && f['idNumber'].errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f['idNumber'].errors['required']">
+                            Id Number is required
+                          </div>
+                        </div>
                       </div>
+
                       <div class="form-group pt-3">
                         <label class="fw-normal">Expiry Date</label><br />
                         <input
                           formControlName="expiryDate"
                           type="date"
+                          min="{{f['issueDate'].value}}"
                           class="form-control"
-                        />
+                          [ngClass]="{
+                            'is-invalid': submitted && f['expiryDate'].errors
+                          }" >
+                        <div
+                          *ngIf="submitted && f['expiryDate'].errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f['expiryDate'].errors['required']">
+                            ExpiryDate is required
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -176,6 +296,10 @@
                           id="sel2"
                           name="sellist1"
                           formControlName="issueAuthority"
+                          [ngClass]="{
+                            'is-invalid':
+                              submitted && f['issueAuthority'].errors
+                          }"
                         >
                           <option value="" selected disabled hidden>
                             Choose Authority
@@ -184,12 +308,21 @@
                           <option>Deputy Commissioner</option>
                           <option>District Collector</option>
                         </select>
+                        <div
+                          *ngIf="submitted && f['issueAuthority'].errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f['issueAuthority'].errors['required']">
+                            IssueAuthority is required
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </accordion-group>
               </accordion>
             </div>
+
             <!-- third adress details -->
             <div class="row mt-2">
               <accordion [isAnimated]="true">
@@ -207,7 +340,20 @@
                           class="form-control"
                           id="exampleFormControlTextarea1"
                           rows="3"
+                          maxlength="20"
+                          [ngClass]="{
+                            'is-invalid':
+                              submitted && f['addresslineOne'].errors
+                          }"
                         ></textarea>
+                        <div
+                          *ngIf="submitted && f['addresslineOne'].errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f['addresslineOne'].errors['required']">
+                            AddressLine one is required
+                          </div>
+                        </div>
                         <!-- <input class="form-control" /> -->
                       </div>
                       <div class="form-group pt-3">
@@ -217,6 +363,9 @@
                           class="form-select"
                           id="sel2"
                           name="sellist1"
+                          [ngClass]="{
+                            'is-invalid': submitted && f['state'].errors
+                          }"
                         >
                           <option value="" selected disabled hidden>
                             Choose State
@@ -225,6 +374,14 @@
                           <option>Aandhra Pradesh</option>
                           <option>Karnataka</option>
                         </select>
+                        <div
+                          *ngIf="submitted && f['state'].errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f['state'].errors['required']">
+                            State is required
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-4">
@@ -236,6 +393,10 @@
                           class="form-control"
                           id="exampleFormControlTextarea1"
                           rows="3"
+                          [ngClass]="{
+                            'is-invalid':
+                              submitted && f['addresslineTwo'].errors
+                          }"
                         ></textarea>
                       </div>
                       <div class="form-group pt-3">
@@ -245,6 +406,9 @@
                           id="sel2"
                           name="sellist1"
                           formControlName="country"
+                          [ngClass]="{
+                            'is-invalid': submitted && f['country'].errors
+                          }"
                         >
                           <option value="" selected disabled hidden>
                             Choose Country
@@ -253,33 +417,56 @@
                           <option>UK</option>
                           <option>US</option>
                         </select>
+                        <div
+                          *ngIf="submitted && f['country'].errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="f['country'].errors['required']">
+                            country is required
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group pt-3">
                         <label class="fw-normal">City</label><br />
-                        <select
-                          class="form-select"
-                          id="sel2"
-                          name="sellist1"
+
+                        <input
+                          type="text"
+                          class="form-control"
+                          maxlength="40"
                           formControlName="city"
+                          [ngClass]="{
+                            'is-invalid':
+                              submitted && f['city'].errors
+                          }"
+                        />
+                        <div
+                          *ngIf="submitted && f['city'].errors"
+                          class="invalid-feedback"
                         >
-                          <option value="" selected disabled hidden>
-                            City
-                          </option>
-                          <option>Tiruchirappalli</option>
-                          <option>Madurai</option>
-                          <option>Thirunelveli</option>
-                        </select>
+                          <div *ngIf="f['city'].errors['required']">
+                            city is required
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </accordion-group>
               </accordion>
+
             </div>
+            <div *ngIf="editToggle">
+              <button class="btn btn-dark w-75">Update</button>
+            </div>
+
+
           </form>
+
         </div>
+
       </div>
+
     </div>
 
     <!-- right side -->
