@@ -9,7 +9,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { EditStudentsComponent } from 'src/app/Pages/list-of-students/edit-students/edit-students.component';
 import { ListOfStudentsComponent } from 'src/app/Pages/list-of-students/list-of-students.component';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     StudentRegistrationComponent,
@@ -24,7 +24,8 @@ import { ListOfStudentsComponent } from 'src/app/Pages/list-of-students/list-of-
     AccordionModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ]
 })
 export class StudentModule { }

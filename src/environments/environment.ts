@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  BaseUrl:"https://b05a-2405-201-e01d-1f6-3fe1-6158-9c33-c5cd.in.ngrok.io"
 };
 
 /*
